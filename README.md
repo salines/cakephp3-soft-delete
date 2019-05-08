@@ -1,6 +1,8 @@
-# CakeSoftDelete plugin for CakePHP
+# CakeSoftDelete plugin for CakePHP 3.7 
 
-[![Build status](https://api.travis-ci.org/PGBI/cakephp3-soft-delete.png?branch=master)](https://travis-ci.org/PGBI/cakephp3-soft-delete)
+## Fork
+
+This repo is forked from not maintained [pgbi/cakephp3-soft-delete](https://github.com/PGBI/cakephp3-soft-delete) and updated to avoid deprecated code in CakePHP >=3.7
 
 ## Purpose
 
@@ -9,7 +11,7 @@ When soft deleting an entity, it is not actually removed from your database. Ins
 
 ## Requirements
 
-This plugins has been developed for cakephp 3.x.
+This plugins has been developed for cakephp >=3.7 and PHP >=7.1
 
 ## Installation
 
@@ -18,7 +20,7 @@ You can install this plugin into your CakePHP application using [composer](http:
 Update your composer file to include this plugin:
 
 ```
-composer require pgbi/cakephp3-soft-delete "~1.0"
+composer require salines/cakephp3-soft-delete "~1.0"
 ```
 
 ## Configuration

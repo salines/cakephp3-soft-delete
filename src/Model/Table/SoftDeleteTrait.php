@@ -6,8 +6,8 @@ use Cake\Datasource\EntityInterface;
 use SoftDelete\Error\MissingColumnException;
 use SoftDelete\ORM\Query;
 
-trait SoftDeleteTrait {
-
+trait SoftDeleteTrait
+{
     /**
      * Get the configured deletion field
      *
@@ -22,7 +22,7 @@ trait SoftDeleteTrait {
             $field = 'deleted';
         }
 
-        if ($this->schema()->column($field) === null) {
+        if ($this->getSchema()->getColumn($field) === null) {
             throw new MissingColumnException(
                 __('Configured field `{0}` is missing from the table `{1}`.',
                     $field,
@@ -36,7 +36,7 @@ trait SoftDeleteTrait {
 
     public function query()
     {
-        return new Query($this->connection(), $this);
+        return new Query($this->getConnection(), $this);
     }
 
     /**
@@ -67,10 +67,13 @@ trait SoftDeleteTrait {
             return false;
         }
 
-        $event = $this->dispatchEvent('Model.beforeDelete', [
-            'entity' => $entity,
-            'options' => $options
-        ]);
+        $event = $this->dispatchEvent(
+            'Model.beforeDelete', 
+            [
+                'entity' => $entity,
+                'options' => $options
+            ]
+        );
 
         if ($event->isStopped()) {
             return $event->result;
@@ -93,10 +96,13 @@ trait SoftDeleteTrait {
             return $success;
         }
 
-        $this->dispatchEvent('Model.afterDelete', [
-            'entity' => $entity,
-            'options' => $options
-        ]);
+        $this->dispatchEvent(
+            'Model.afterDelete', 
+            [
+                'entity' => $entity,
+                'options' => $options
+            ]
+        );
 
         return $success;
     }
@@ -142,17 +148,19 @@ trait SoftDeleteTrait {
 
     /**
      * Hard deletes all records that were soft deleted before a given date.
-     * @param \DateTime $until Date until which soft deleted records must be hard deleted.
+     * @param \DateTime $until Date until witch soft deleted records must be hard deleted.
      * @return int number of affected rows.
      */
     public function hardDeleteAll(\Datetime $until)
     {
         $query = $this->query()
             ->delete()
-            ->where([
-                $this->getSoftDeleteField() . ' IS NOT NULL',
-                $this->getSoftDeleteField() . ' <=' => $until->format('Y-m-d H:i:s')
-            ]);
+            ->where(
+                [
+                    $this->getSoftDeleteField() . ' IS NOT NULL',
+                    $this->getSoftDeleteField() . ' <=' => $until->format('Y-m-d H:i:s')
+                ]
+            );
         $statement = $query->execute();
         $statement->closeCursor();
         return $statement->rowCount();
