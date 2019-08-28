@@ -66,7 +66,7 @@ trait SoftDeleteTrait
         if ($options['checkRules'] && !$this->checkRules($entity, RulesChecker::DELETE, $options)) {
             return false;
         }
-
+        /** @var \Cake\Event\Event $event */
         $event = $this->dispatchEvent(
             'Model.beforeDelete', 
             [
@@ -76,7 +76,7 @@ trait SoftDeleteTrait
         );
 
         if ($event->isStopped()) {
-            return $event->result;
+            return $event->getResult();
         }
 
         $this->_associations->cascadeDelete(
