@@ -1,6 +1,6 @@
 {
     "name": "salines/cakephp3-soft-delete",
-    "description": "SoftDelete plugin updated for CakePHP 3.7",
+    "description": "SoftDelete plugin updated for CakePHP 3 & 4",
     "keywords": ["cakephp", "cakephp 3", "plugin", "soft", "delete", "deletable"],
     "homepage": "https://github.com/salines/cakephp3-soft-delete",
     "type": "cakephp-plugin",
@@ -11,7 +11,7 @@
     "require": {
         "php": ">=7.1",
         "cakephp/plugin-installer": "*",
-        "cakephp/cakephp": "~3.7"
+        "cakephp/cakephp": ">=3.7"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
